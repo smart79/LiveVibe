@@ -1,14 +1,23 @@
-// Import Firebase modules
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, push, onChildAdded, remove, update, serverTimestamp } from "firebase/database";
-import config from "./firebase-config.js"; // Import Firebase credentials
+// Remove import statements (not needed for Firebase CDN)
+
+// Firebase configuration
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  databaseURL: "YOUR_DATABASE_URL",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
 
 // Initialize Firebase
-const app = initializeApp(config);
-const firebaseDB = getDatabase(app);
+const app = firebase.initializeApp(firebaseConfig);
+const firebaseDB = firebase.database();
 
-// Export Firebase database functions for easy use in logic.js
-export { firebaseDB, ref, push, onChildAdded, remove, update, serverTimestamp };
+// Export Firebase database functions for use in logic.js
+export { firebaseDB };
+
 
 // ==========
 // Global Variables

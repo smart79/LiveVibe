@@ -2,7 +2,6 @@
 // Import Firebase
 // =========================================================================================================================
 
-import { firebaseDB, ref, push, onChildAdded, remove, update, serverTimestamp } from "./firebase.js";
 import apiKeys from "./api-config.js"; // Import API keys
 
 // =========================================================================================================================
