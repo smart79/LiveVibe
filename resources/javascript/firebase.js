@@ -8,6 +8,7 @@ if (!window.firebaseConfig) {
 
   // Export Firebase database for use in other files
   window.firebaseDB = firebaseDB;
+  console.log("Firebase initialized successfully!");
 }
 
 
