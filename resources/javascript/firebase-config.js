@@ -1,4 +1,4 @@
-const firebaseConfig = {
+window.firebaseConfig = {
 
     apiKey: "AIzaSyD57sfDQp-DLbA4VU_9IvialIKuqJmcelE",
   

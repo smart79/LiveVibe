@@ -1,22 +1,14 @@
-// Remove import statements (not needed for Firebase CDN)
+// Ensure firebaseConfig exists before initializing Firebase
+if (!window.firebaseConfig) {
+  console.error("Firebase configuration not found!");
+} else {
+  // Initialize Firebase
+  const app = firebase.initializeApp(window.firebaseConfig);
+  const firebaseDB = firebase.database();
 
-// Firebase configuration
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  databaseURL: "YOUR_DATABASE_URL",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
-
-// Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
-const firebaseDB = firebase.database();
-
-// Export Firebase database functions for use in logic.js
-export { firebaseDB };
+  // Export Firebase database for use in other files
+  window.firebaseDB = firebaseDB;
+}
 
 
 // ==========
