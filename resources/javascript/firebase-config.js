@@ -15,7 +15,4 @@ window.firebaseConfig = {
     measurementId: "G-5496LBF4MP"
   
   };
-  
-  
-  export default firebaseConfig;
-  
+   
