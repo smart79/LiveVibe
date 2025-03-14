@@ -17,5 +17,5 @@ window.firebaseConfig = {
   };
   
   
-  export default config;
+  export default firebaseConfig;
   
