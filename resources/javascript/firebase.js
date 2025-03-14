@@ -12,9 +12,10 @@ if (!window.firebaseConfig) {
 
 
 // ==========
-// Global Variables
+// globals
 // ==========
 
+// used in firebase updates/pulls
 var searchBySong = [];
 var searchByArtist = [];
 var dbRecordCount = 0;
@@ -22,20 +23,19 @@ var resultNum;
 var albumName; 
 var social;
 var dateAdded;
-var music = []; // Store Firebase records for deletions
 
-// Used for Firebase updates and deletes
+// used for firebase updates and deletes
 var keyId;
 var savedRow;
 var deletedRow;
 var searchedSong;
 var searchedArtist;
 
-// On-click button to push data to Firebase database
-$(".btn.btn-default").on("click", function(event) {
+// on click button to push data to realtime firebase database
+$(".btn btn-default").on("click", function(event) {
   event.preventDefault();
 
-  // Grabbing user input
+  // grabbing user input
   var searchBySong = $("#songName").val().trim();
   var searchByArtist = $("#artistName").val().trim();
 
@@ -44,66 +44,83 @@ $(".btn.btn-default").on("click", function(event) {
     artist: searchByArtist,
   };
 
-  // Push search results to Firebase database
-  push(ref(firebaseDB, "searches"), resultsShow);
+  database.ref().push(resultsShow);
 
-  console.log(resultsShow);
+  console.log(searchBySong.song);
+  console.log(searchbyArtist.artist);
 
-  // Clear input box
-  $("#search-bar").val("");
+// clearing text box
+   $("#search-bar").val("");
+
+  //  Push search results to Firebase database
+    for(var i = 0; i < result.length; i++) {
+        firebaseDB.ref().push({
+            artistName: result[i].artistName,
+            twitterUrl: result[i].songName,
+            dateAdded: firebase.database.ServerValue.TIMESTAMP
+        });
+    }
+
+
+firebaseDB.ref().on("child_added", function(childSnapshot) {
+
+  resultNum = childSnapshot.val().resultNum;
+  songName = childSnapshot.val().songName;
+  artistName = childSnapshot.val().artistName;
+  albumName = childSnapshot.val().albumName;
+  social = childSnapshot.val().social;
+  var keyId = childSnapshot.key;
+  
+  console.log("keyId", keyId);
+     
+  // Error Handler
+  }, function(errorObject) {
+    console.log("firebase return error: " + errorObject.code);
 });
 
-// Function to update song database
-function songDatabaseUpdate(objects) {
-  objects.forEach(object => {
-    push(ref(firebaseDB, "songs"), {
-      resultNum: object.resultNum,
-      songName: object.songName,
-      artistName: object.artistName,
-      albumName: object.albumName,
-      social: object.social,
-      dateAdded: serverTimestamp()
-    });
-  });
-}
+   });
 
-// Listen for child added events to update `music[]`
-onChildAdded(ref(firebaseDB, "songs"), (childSnapshot) => {
-  let songData = {
-    resultNum: childSnapshot.val().resultNum,
-    songName: childSnapshot.val().songName,
-    artistName: childSnapshot.val().artistName,
-    albumName: childSnapshot.val().albumName,
-    social: childSnapshot.val().social,
-    keyId: childSnapshot.key
-  };
+   function songDatabaseUpdate(objects) {
+      
+    objects.forEach(object => {
+        firebaseDB.ref().push({
+          resultNum: object.resultNum,   
+          songName: object.songName,
+          artistName: object.artistName,
+          albumName: object.albumName,
+          social: object.social,
+          dateAdded: firebase.database.ServerValue.TIMESTAMP
+        });
+    })
+  }
 
-  music.push(songData); // Store record in music[]
-  console.log("New song added:", songData);
-});
 
-// Delete row function
-function deleteRow(num) {
+deleteRow = function (num) {
   var rowDeleted = num;
+  
   console.log("rowDeleted:", rowDeleted);
-  document.getElementById("tableId").deleteRow(rowDeleted);
+  document.getElementById("tableId").deleteRow(num);
 
-  for (var i = 0; i < music.length; i++) {
-    if (music[i].keyId === rowDeleted) {
+
+  for(var i = 0; i < dbRecordCount; i++) {
+
+    if(music[i].record === rowDeleted) {
       keyId = music[i].keyId;
-      console.log("Found keyId:", keyId);
+
+      console.log("rowDeleted", rowDeleted);
+      console.log("music[i].record", music[i].record);
+      console.log("keyId", keyId);
     }
   }
 
-  if (keyId) {
-    remove(ref(firebaseDB, "songs/" + keyId))
-      .then(() => console.log("Row deleted successfully"))
-      .catch(error => console.error("Error deleting row:", error));
-  }
+  // Push user input to firebase database
+  firebaseDB.ref(keyId).remove();
+
 }
 
-// Export deleteRow function
-export { deleteRow };
+firebaseDB.ref(keyId).update({
+
+});
 
 
 
