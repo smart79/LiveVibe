@@ -1,0 +1,10 @@
+# Ignore API keys file
+javascript/api-config.js
+javascript/firebase-config.js
+
+# Ignore environment config if I ever add one
+.env
+
+# Ignore system files
+node_modules/
+.DS_Store
