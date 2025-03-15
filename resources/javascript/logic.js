@@ -1,15 +1,23 @@
 // =========================================================================================================================
-// Import Firebase
+// Import FirebaseDB
 // =========================================================================================================================
-// Ensure firebaseDB is available before using it
-if (!window.firebaseDB) {
-    console.error("Firebase database is not initialized!");
-} else {
-    const firebaseDB = window.firebaseDB;
-    
-    // Now you can use firebaseDB for your logic
-    console.log("Firebase is ready:", firebaseDB);
-}
+
+import { firebaseDB } from "./firebase.js"; 
+
+// =========================================================================================================================
+// Global Variables
+// =========================================================================================================================
+
+// API Keys
+import apiKeys from "./api-config.js";  // Import API keys
+
+const musicApiKey = apiKeys.musixmatch;  // Use imported keys
+const ticketMasterApiKey = apiKeys.ticketmaster;
+
+console.log("🎵 Musixmatch API Key:", musicApiKey);
+console.log("🎟️ Ticketmaster API Key:", ticketMasterApiKey);
+console.log("🔥 Firebase DB:", firebaseDB);
+
 
 // =========================================================================================================================
 // GET ZIP CODE
@@ -282,7 +290,7 @@ $("#songBtn").on("click", function(event) {
   });
 
 
-  function songDatabaseUpdate(objects) {
+  export function songDatabaseUpdate(objects) {
       
     objects.forEach(object => {
         firebaseDB.ref().push({
