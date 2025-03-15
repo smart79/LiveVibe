@@ -407,7 +407,9 @@ function createTableSong(result, song) {
     });
   
     // Slide Down Button
-    //$(".backDiv").html("<button type='button' class='btn btn-secondary' onclick='slideDownAction()'>Back</button>");
+    $(".backDiv").html("<button type='button' class='btn btn-secondary' id='backButton'>Back</button>");
+
+    $("#backButton").on("click", slideDownAction);
 
 
     var databaseSave = {
@@ -426,7 +428,7 @@ function createTableSong(result, song) {
 // SLIDE DOWN FUNCTION
 // =========================================================================================================================
 
-slideDownAction = function () {
+const slideDownAction = function () {
     $(".header").slideDown();
 }
 

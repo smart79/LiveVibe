@@ -4,9 +4,12 @@ import { getDatabase, ref, push, remove, update, onChildAdded, serverTimestamp }
 
 // Initialize Firebase
 const firebaseConfig = {
+
   apiKey: "AIzaSyD57sfDQp-DLbA4VU_9IvialIKuqJmcelE",
 
   authDomain: "livevibe.firebaseapp.com",
+
+  databaseURL: "https://livevibe-default-rtdb.firebaseio.com/",
 
   projectId: "livevibe",
 
