@@ -1,6 +1,6 @@
 // Import Firebase SDKs (ensure these are included in index.html)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getDatabase, ref, push, remove, update, onChildAdded, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+import { getDatabase, ref, push, remove, get, child, onChildAdded, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -27,7 +27,36 @@ const app = initializeApp(firebaseConfig);
 const firebaseDB = getDatabase(app);
 
 export { firebaseDB };
+// ===============================
+// 🔵 TEST WRITE TO FIREBASE
+// ===============================
+function testWrite() {
+  const dbRef = ref(firebaseDB, "testData/");
+  push(dbRef, { message: "Hello from Firebase!" })
+    .then(() => console.log("✅ Successfully wrote to Firebase!"))
+    .catch((error) => console.error("❌ Write failed:", error));
+}
 
+// ===============================
+// 🟢 TEST READ FROM FIREBASE (FIXED)
+// ===============================
+function testRead() {
+  const dbRef = ref(firebaseDB); // ✅ Correct reference
+  get(child(dbRef, "testData/"))  // ✅ Ensure correct path
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log("✅ Read successful:", snapshot.val());
+      } else {
+        console.log("⚠️ No data found in testData/");
+      }
+    })
+    .catch((error) => console.error("❌ Read failed:", error));
+}
+
+
+// Call the functions when the page loads
+testWrite();
+setTimeout(testRead, 3000); // Delay read for 3 seconds
 // ==========
 // Globals (used for updates & pulls)
 // ==========
