@@ -3,7 +3,20 @@
 // =========================================================================================================================
 
 import { firebaseDB } from "./firebase.js"; 
+import { ref, push, get, child } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
+const testRef = ref(firebaseDB, "testData/");
+get(testRef)
+    .then((snapshot) => {
+        if (snapshot.exists()) {
+            console.log("✅ Firebase Data:", snapshot.val());
+        } else {
+            console.log("❌ No data available");
+        }
+    })
+    .catch((error) => {
+        console.error("❌ Error fetching Firebase data:", error);
+    });
 // =========================================================================================================================
 // Global Variables
 // =========================================================================================================================
@@ -158,14 +171,14 @@ var recurDetails = $(this).parent('td').parent('tr');
 var eventID = $(this).parent('td').parent('tr').children('td.event-id').html();
 
 // use an ajax call to get the rows to show   
- $.get(
+/*$.get(
     '/manage/ajax/manage_event_recurring.php?event=' + eventID,
     function(ajaxhtml){
        recurDetails.after(ajaxhtml);
       // end throbber
       $this.parent('td').children('img.throbber').remove();
     }
- );
+ );*/
 
 
 // =========================================================================================================================
@@ -175,10 +188,9 @@ var eventID = $(this).parent('td').parent('tr').children('td.event-id').html();
 // =========================================================================================================================
 
 function ticketSearch(searchTerm, state) {
-   
     $.ajax({
-        type:"GET",
-        url:"https://app.ticketmaster.com/discovery/v2/events.json",
+        type: "GET",
+        url: "https://app.ticketmaster.com/discovery/v2/events.json",
         data: {
             apikey: ticketMasterApiKey,
             keyword: searchTerm,
@@ -186,50 +198,59 @@ function ticketSearch(searchTerm, state) {
             stateCode: state,
             size: 5,
             includeSpellcheck: "yes",
-           
         },
         dataType: "json",
         success: function(response) {
             try {
-                console.log(response);
-                var result = [];
-                let jsonArray = response._embedded.events;
+                console.log("Ticketmaster API Response:", response);
+                
+                let result = [];
 
-                jsonArray.forEach(element => {
-                    let event = {
-                        eventName: element.name,
-                        date: element.dates.start.localDate,
-                        status: element.dates.status.code,
-                        venueName: element._embedded.venues[0].name,
-                        address: element._embedded.venues[0].address.line1,
-                        city: element._embedded.venues[0].city.name,
-                        country: element._embedded.venues[0].country.name,
-                        countryCode: element._embedded.venues[0].country.countryCode,
-                        eventUrl: element._embedded.venues[0].url
+                // Check if _embedded exists to avoid breaking the loop
+                if (response._embedded && response._embedded.events) {
+                    let jsonArray = response._embedded.events;
+
+                    jsonArray.forEach(element => {
+                        let event = {
+                            eventName: element.name,
+                            date: element.dates.start.localDate || "Date Not Available",
+                            status: element.dates.status.code || "Status Not Available",
+                            venueName: element._embedded?.venues?.[0]?.name || "Venue Not Available",
+                            address: element._embedded?.venues?.[0]?.address?.line1 || "Address Not Available",
+                            city: element._embedded?.venues?.[0]?.city?.name || "City Not Available",
+                            country: element._embedded?.venues?.[0]?.country?.name || "Country Not Available",
+                            countryCode: element._embedded?.venues?.[0]?.country?.countryCode || "N/A",
+                            eventUrl: element.url || "#",
+                        };
+                        result.push(event);
+                    });
+
+                    if (result.length > 0) {
+                        populateModal(result);
+                        $("#exampleModal").modal("show");
+                    } else {
+                        throw new Error("No events found");
                     }
-                    result.push(event);
-                    populateModal(result);
-                    $("#exampleModal").modal("show");
-
-                });
-            }catch(exception) {
-                console.log(exception);
-                result = [{}];
-                console.log("no results");
-
+                } else {
+                    throw new Error("No events found in API response");
+                }
+            } catch (exception) {
+                console.error("Error processing API response:", exception);
                 Swal.fire({
-                    type: 'error',
-                    title: 'No events found'
-                  });
+                    icon: "error",
+                    title: "No Events Found",
+                    text: "Try a different search term.",
+                });
             }
+        },
+        error: function(xhr, status, error) {
+            console.error("Ticketmaster API Error:", status, error);
+            Swal.fire({
+                icon: "error",
+                title: "API Error",
+                text: "The Ticketmaster API is unavailable. Try again later.",
+            });
         }
-    }).fail(function() {
-        Swal.fire({
-            type: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong!',
-            footer: '<a href>Why do I have this issue?</a>'
-          });
     });
 }
 

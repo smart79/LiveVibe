@@ -120,4 +120,86 @@ td:hover{
             margin: auto;
             width: 15%;
         }
-        
+        /* Ensure the header scales properly on all devices */
+.header {
+    height: auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Fix the welcome message on smaller screens */
+.welcome-msg {
+    font-size: 5vw; /* Scale text size dynamically */
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Ensure buttons are responsive */
+.btn {
+    font-size: 1.2em;
+    padding: 10px 20px;
+    width: auto;
+    max-width: 90%;
+}
+
+/* Responsive Search Bar */
+#searchTerm {
+    width: 80%;
+    max-width: 400px;
+}
+
+/* Adjust background video for mobile */
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Make table scrollable on mobile */
+#tableId {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Fix the back button on mobile */
+.backDiv {
+    width: 100%;
+    max-width: 300px;
+}
+
+/* ================== RESPONSIVE MEDIA QUERIES ================== */
+
+/* Tablet screens (768px and below) */
+@media (max-width: 768px) {
+    .welcome-msg {
+        font-size: 6vw;
+    }
+    .btn {
+        width: 100%;
+        font-size: 1em;
+    }
+}
+
+/* Mobile screens (480px and below) */
+@media (max-width: 480px) {
+    .welcome-msg {
+        font-size: 8vw;
+    }
+    .btn {
+        font-size: 0.9em;
+    }
+    .modal-body {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+

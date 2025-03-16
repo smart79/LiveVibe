@@ -9,7 +9,7 @@ const firebaseConfig = {
 
   authDomain: "livevibe.firebaseapp.com",
 
-  databaseURL: "https://livevibe-default-rtdb.firebaseio.com/",
+  databaseURL: "https://livevibe-default-rtdb.firebaseio.com",
 
   projectId: "livevibe",
 
@@ -26,8 +26,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const firebaseDB = getDatabase(app);
 
+
 export { firebaseDB };
-// ===============================
+/* ===============================
 // 🔵 TEST WRITE TO FIREBASE
 // ===============================
 function testWrite() {
@@ -56,7 +57,7 @@ function testRead() {
 
 // Call the functions when the page loads
 testWrite();
-setTimeout(testRead, 3000); // Delay read for 3 seconds
+setTimeout(testRead, 3000); // Delay read for 3 seconds */
 // ==========
 // Globals (used for updates & pulls)
 // ==========
