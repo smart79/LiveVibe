@@ -1,6 +1,10 @@
 #tableId{
     height: 250px;
     color: white;
+    width: 80%; 
+    overflow-x: auto;
+    margin-top: 50px; /* Push table further down */
+    margin-left: 200px;
 }
 
 td:hover{
@@ -34,17 +38,16 @@ td:hover{
             
             height: 100vh;
         }
-        .video-background
-        {
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            min-width: 100%;
-            min-height: 100;
-            width: auto;
-            height: auto;
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw; /* Full viewport width */
+            height: 100vh; /* Full viewport height */
+            object-fit: cover; /* Ensures the video scales properly */
             z-index: -1;
         }
+        
         
         @media (min-aspect-ratio:16/9)
         {
@@ -83,6 +86,8 @@ td:hover{
             text-decoration: none;
             border: 1px solid coral;
             border-radius: 25px;
+            width: auto; /* Ensures buttons do not stretch */
+            text-align: center;
         }
         .btn-artist:hover
         {
@@ -112,12 +117,66 @@ td:hover{
         #searchTerm {
             opacity: .8;
             max-width: 450px;
+            text-align: center;
             margin-left: auto;
             margin-right: auto;
         }
 
         .backDiv {
-            margin: auto;
-            width: 15%;
+            width: auto;
+            max-width: 150px; 
+            margin: 10px auto; /* Centers it */
+            text-align: center;
+            display: inline-block; /* Ensures it stays in line */
         }
         
+         
+    /* Responsive Fixes */
+@media (max-width: 768px) {
+    .welcome-msg {
+        font-size: 6vw;
+    }
+    .btn {
+        width: 90%;
+    }
+    #tableId {
+        margin-top: 40px; /* Prevents overlap */
+    }
+    .search-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Mobile screens (480px and below) */
+@media (max-width: 480px) {
+    .welcome-msg {
+        font-size: 8vw;
+    }
+    .btn {
+        font-size: 0.9em;
+    }
+    .modal-body {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    #tableId {
+        font-size: 12px;
+    }
+}
+@media (max-width: 768px) {
+    .welcome-msg {
+        font-size: 6vw;
+    }
+    .btn {
+        font-size: 1em;
+        width: 40%;
+    }
+    .backDiv {
+        width: 40%;
+    }
+    #tableId {
+        width: 90%;
+        font-size: 14px;
+    }
+}
