@@ -27,9 +27,9 @@ import apiKeys from "./api-config.js";  // Import API keys
 const musicApiKey = apiKeys.musixmatch;  // Use imported keys
 const ticketMasterApiKey = apiKeys.ticketmaster;
 
-console.log("🎵 Musixmatch API Key:", musicApiKey);
-console.log("🎟️ Ticketmaster API Key:", ticketMasterApiKey);
-console.log("🔥 Firebase DB:", firebaseDB);
+//console.log("🎵 Musixmatch API Key:", musicApiKey);
+//console.log("🎟️ Ticketmaster API Key:", ticketMasterApiKey);
+//onsole.log("🔥 Firebase DB:", firebaseDB);
 
 
 // =========================================================================================================================
@@ -228,6 +228,8 @@ function ticketSearch(searchTerm, state) {
                     if (result.length > 0) {
                         populateModal(result);
                         $("#exampleModal").modal("show");
+                        // 🎵 Call YouTube API to fetch related music videos
+                        fetchYouTubeVideo(searchTerm);
                     } else {
                         throw new Error("No events found");
                     }
@@ -252,6 +254,25 @@ function ticketSearch(searchTerm, state) {
             });
         }
     });
+}
+// ============================
+// 🎵 YOUTUBE API: FETCH VIDEO
+// ============================
+function fetchYouTubeVideo(searchQuery) {
+    const youtubeApiKey = "YOUR_YOUTUBE_API_KEY"; // Replace with actual YouTube API key
+    const youtubeURL = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${encodeURIComponent(searchQuery)}&key=${youtubeApiKey}`;
+
+    fetch(youtubeURL)
+        .then(response => response.json())
+        .then(data => {
+            if (data.items.length > 0) {
+                const videoId = data.items[0].id.videoId;
+                displayYouTubeVideo(videoId); // Send videoId to display function
+            } else {
+                console.log("No videos found");
+            }
+        })
+        .catch(error => console.error("YouTube API Error:", error));
 }
 
 
@@ -367,7 +388,7 @@ function createTableArtist(result, artist) {
     localStorage.setItem("user agent",ua);
 
     // Slide Down Button
-    //$(".backDiv").html("<button type='button' class='btn btn-secondary' onclick='slideDownAction()'>Back</button>");
+    $(".backDiv").html("<button type='button' class='btn btn-secondary' onclick='slideDownAction()'>Back</button>");
 
 
         var databaseSave = {
@@ -451,6 +472,24 @@ function createTableSong(result, song) {
 
 const slideDownAction = function () {
     $(".header").slideDown();
+}
+// ============================
+// 🎥 DISPLAY YOUTUBE VIDEO
+// ============================
+function displayYouTubeVideo(videoId) {
+    const videoContainer = document.getElementById("youtube-video");
+    if (!videoContainer) {
+        console.error("YouTube video container not found!");
+        return;
+    }
+
+    // Embed the YouTube player
+    videoContainer.innerHTML = `
+        <iframe width="560" height="315" 
+            src="https://www.youtube.com/embed/${videoId}" 
+            frameborder="0" allowfullscreen>
+        </iframe>
+    `;
 }
 
 

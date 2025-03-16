@@ -1,53 +1,53 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>LiveVibe Music</title>
-    
-    <link rel="stylesheet" href="resources/css/normalize.css">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>LiveVibe 🎶</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link rel="stylesheet" href="resources/css/style.css">
-    
-</head>
+        <link rel="stylesheet" href="resources/css/normalize.css">
 
-<body>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        <link rel="stylesheet" href="resources/css/style.css">
+        
+    </head>
+
+    <body>
 
     <!-- ============================================================================================================================= -->
     <!-- Navigation Bar: Input Field / Search By Artist Name Button / Search By Song Name Button -->
     <!-- ============================================================================================================================= -->
 
-    <section class="header">
-        <video autoplay loop class="video-background" muted plays-inline>
+        <section class="header">
+            <video autoplay loop class="video-background" muted plays-inline>
 
-            <source src="resources/images/Recordplayer1_1080p_Videvo.mov" type="video/mp4">
-        </video>
-        <!-- //--place holder for logo// -->
-        <img src="" class="logo">
+                <source src="resources/images/Recordplayer1_1080p_Videvo.mov" type="video/mp4">
+            </video>
+            <!-- //--place holder for logo// -->
+            <img src="" class="logo">
 
-        <div class="welcome-msg">
-            <h1>LiveVibe</h1>
-            <input type="text" id = "searchTerm" class="form-control" placeholder="Search" name="search">
-            <a href="#" id = "artistBtn"class="btn btn-artist">Artist</a>
-            <a href="#" id = "songBtn" class="btn btn-song-search">Song Search</a>
-        </div>
-        <br>
-        <br>
-        <br>
-        <br>
-       
+            <div class="welcome-msg">
+                <h1>LiveVibe</h1>
+                <input type="text" id = "searchTerm" class="form-control" placeholder="Enter Favorite Artist or Song" name="search">
+                <a href="#" id = "artistBtn"class="btn btn-artist">Artist Search</a>
+                <a href="#" id = "songBtn" class="btn btn-song-search">Song Search</a>
+                <div class="backDiv"></div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+        
 
-    
-        <div class="table-responsive">
-            <table class="table" id="tableId">
-                <tbody class="tBodyClass" id="tBodyId"></tbody>
-            </table>
-        </div>
-    </section>
+        
+            <div class="table-responsive">
+                <table class="table" id="tableId">
+                    <tbody class="tBodyClass" id="tBodyId"></tbody>
+                </table>
+            </div>         
+        </section>
 
 
 
@@ -56,13 +56,13 @@
     <!-- Table: Displays the Artist/Song Search Results -->
     <!-- ============================================================================================================================= -->
 
-    <div class="container">
-        <div class="table-responsive">
-            <table class="table" id="tableId">
-                <tbody class="tBodyClass" id="tBodyId"></tbody>
-            </table>
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table" id="tableId">
+                    <tbody class="tBodyClass" id="tBodyId"></tbody>
+                </table>
+            </div>
         </div>
-    </div>
 
     <!-- ============================================================================================================================= -->
     <!-- Div: Displays the Ticketmaster Search Result -->
@@ -70,61 +70,61 @@
 
 
         <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h2 class="modal-title" id="modalTital"></h2>
-            </div>
-            <div class="modal-body">
-                <div class="container" id="event">
-                    <div class="container">
-                        <h4>Address: </h4>
-                        <p class="eventP" id="address"></p>
-                    </div>
-                    <div class="container">
-                        <h4>City: </h4>
-                        <p class="eventP" id="city"></p>
-                    </div>
-                    <div class="container">
-                        <h4>Country: </h4>
-                        <p class="eventP" id="country"></p>
-                    </div>
-                    <div class="container">
-                        <h4>Date: </h4>
-                        <p class="eventP" id="date"></p>
-                    </div>
-                    <div class="container">
-                        <h4>Genre: </h4>
-                        <p class="eventP" id="genre"></p>
-                    </div>
-                    <div class="container">
-                        <h4>Status: </h4>
-                        <p class="eventP" id="status"></p>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h2 class="modal-title" id="modalTital"></h2>
+                </div>
+                <div class="modal-body">
+                    <div class="container" id="event">
+                        <div class="container">
+                            <h4>Address: </h4>
+                            <p class="eventP" id="address"></p>
+                        </div>
+                        <div class="container">
+                            <h4>City: </h4>
+                            <p class="eventP" id="city"></p>
+                        </div>
+                        <div class="container">
+                            <h4>Country: </h4>
+                            <p class="eventP" id="country"></p>
+                        </div>
+                        <div class="container">
+                            <h4>Date: </h4>
+                            <p class="eventP" id="date"></p>
+                        </div>
+                        <div class="container">
+                            <h4>Genre: </h4>
+                            <p class="eventP" id="genre"></p>
+                        </div>
+                        <div class="container">
+                            <h4>Status: </h4>
+                            <p class="eventP" id="status"></p>
+                        </div>
                     </div>
                 </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                <button href="#link" type="button" class="btn btn-primary" id="purchase">Purchase tickets</button>
             </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
-            <button href="#link" type="button" class="btn btn-primary" id="purchase">Purchase tickets</button>
         </div>
-        </div>
-    </div>
 
 
     <!-- ============================================================================================================================= -->
     <!-- Div: Back Button for SlideUp -->
     <!-- ============================================================================================================================= -->
 
-    <div class="backDiv"></div>
+        
 
 
     <!-- ============================================================================================================================= -->
     <!-- Footer -->
     <!-- ============================================================================================================================= -->
 
-    <footer>Copyright 2025</footer>
+        <footer>Copyright 2025</footer>
 
 
     
@@ -132,17 +132,17 @@
     <!-- JavaScript and jQuery Scripts -->
     <!-- ============================================================================================================================= -->
     
-    <script type="module"src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-    <script type="module"src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
-    <script type="module" src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-    <script type="module" src="./resources/javascript/logic.js"></script>
+        <script type="module"src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+        <script type="module"src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
+        <script type="module" src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+        <script type="module" src="./resources/javascript/logic.js"></script>
 
     
 
 
-</body>
+    </body>
 
 </html>
