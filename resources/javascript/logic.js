@@ -26,10 +26,12 @@ import apiKeys from "./api-config.js";  // Import API keys
 
 const musicApiKey = apiKeys.musixmatch;  // Use imported keys
 const ticketMasterApiKey = apiKeys.ticketmaster;
+const youtubeApiKey = apiKeys.youTube;
 
+console.log("🎥 YouTube API Key:", youtubeApiKey);
 //console.log("🎵 Musixmatch API Key:", musicApiKey);
 //console.log("🎟️ Ticketmaster API Key:", ticketMasterApiKey);
-//onsole.log("🔥 Firebase DB:", firebaseDB);
+//console.log("🔥 Firebase DB:", firebaseDB);
 
 
 // =========================================================================================================================
@@ -165,10 +167,10 @@ $(this).parent('td').parent('tr').parent().children('tr.expanded').each(
 // And here's the expand:
 
 // get a handle on where we want to insert some rows
-var recurDetails = $(this).parent('td').parent('tr');
+//var recurDetails = $(this).parent('td').parent('tr');
 
 // grab the ID number from the first cell
-var eventID = $(this).parent('td').parent('tr').children('td.event-id').html();
+//var eventID = $(this).parent('td').parent('tr').children('td.event-id').html();
 
 // use an ajax call to get the rows to show   
 /*$.get(
@@ -259,7 +261,7 @@ function ticketSearch(searchTerm, state) {
 // 🎵 YOUTUBE API: FETCH VIDEO
 // ============================
 function fetchYouTubeVideo(searchQuery) {
-    const youtubeApiKey = "YOUR_YOUTUBE_API_KEY"; // Replace with actual YouTube API key
+    
     const youtubeURL = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${encodeURIComponent(searchQuery)}&key=${youtubeApiKey}`;
 
     fetch(youtubeURL)
@@ -286,7 +288,7 @@ $("#artistBtn").on("click", function(event) {
     event.preventDefault();
   
     // Slide Up to display results table
-    //$(".header").slideUp();
+    $(".header").slideUp();
   
     // Trim spaces from user input
     var artist = $("#searchTerm").val().trim();
@@ -384,25 +386,29 @@ function createTableArtist(result, artist) {
         $("#tableId").append(row);
         index++;
     });
-    var ua= navigator.userAgent;
-    localStorage.setItem("user agent",ua);
 
-    // Slide Down Button
-    $(".backDiv").html("<button type='button' class='btn btn-secondary' onclick='slideDownAction()'>Back</button>");
-
-
-        var databaseSave = {
-            searchValue: artist,
-            ua: ua,
-            record: result,
-            dateAdded: firebase.database.ServerValue.TIMESTAMP
-        }
-
-        // push results to Firebase
-        firebaseDB.ref().push(databaseSave);
-   
-};
-
+    // Attach click event to Artist names
+    $("td:nth-child(2)").on("click", function () {  // Selects the second column (Artist name)
+        const artistName = $(this).text();
+        fetchYouTubeVideo(artistName); // Fetch video for the artist
+        slideDownAction(); // Hide header and show video
+    });
+    
+    var ua = navigator.userAgent;
+    localStorage.setItem("user agent", ua);
+    
+    var databaseSave = {
+        searchValue: artist,
+        ua: ua,
+        record: result,
+        dateAdded: firebase.database.ServerValue.TIMESTAMP
+    }
+    
+    // Push results to Firebase
+    firebaseDB.ref().push(databaseSave);
+    };
+    
+    
 
 
 // =========================================================================================================================
@@ -446,24 +452,50 @@ function createTableSong(result, song) {
 
         $("#tableId").append(row);
 
+    
     });
-  
-    // Slide Down Button
-    $(".backDiv").html("<button type='button' class='btn btn-secondary' id='backButton'>Back</button>");
 
-    $("#backButton").on("click", slideDownAction);
-
-
+    // Attach click event to Song names
+    $("td:nth-child(2)").on("click", function () {  // Selects the second column (Song title)
+        const songName = $(this).text();
+        fetchYouTubeVideo(songName); // Fetch video for the song
+        slideDownAction(); // Hide header and show video
+    });
+    
+    var ua = navigator.userAgent;
+    localStorage.setItem("user agent", ua);
+    
     var databaseSave = {
         searchValue: song,
         ua: ua,
         record: result,
         dateAdded: firebase.database.ServerValue.TIMESTAMP
     }
-        // push results to Firebase
-        firebaseDB.ref().push(databaseSave);
-   
-};
+    
+    // Push results to Firebase
+    firebaseDB.ref().push(databaseSave);
+    };
+    
+    // Back Button: Reloads the last search results
+$(".backDiv").html("<button type='button' class='btn btn-secondary' id='backButton'>Back</button>");
+
+$("#backButton").on("click", function () {
+    console.log("🔄 Reloading last search results...");
+
+    // Show the search form again
+    $(".header").fadeIn("fast");
+
+    // Hide the YouTube video
+    $("#youtube-video").empty().hide();
+
+    // Ensure the last search results remain
+    $("#tableId").fadeIn("fast");
+
+    // Scroll back to the table
+    $("html, body").animate({
+        scrollTop: $("#tableId").offset().top
+    }, "slow");
+});
 
 
 // =========================================================================================================================
@@ -471,26 +503,49 @@ function createTableSong(result, song) {
 // =========================================================================================================================
 
 const slideDownAction = function () {
-    $(".header").slideDown();
-}
+    console.log("🎥 Hiding search, displaying video...");
+
+    // Hide only the search elements, NOT the entire header
+    $(".welcome-msg, .logo, #searchTerm, #artistBtn, #songBtn").addClass("hidden");
+
+    // Show the YouTube video container
+    $("#youtube-container").css("display", "block").fadeIn("fast");
+
+    // Show the back button
+    $("#backButton").fadeIn("fast");
+};
+
+
+
 // ============================
 // 🎥 DISPLAY YOUTUBE VIDEO
 // ============================
 function displayYouTubeVideo(videoId) {
-    const videoContainer = document.getElementById("youtube-video");
-    if (!videoContainer) {
+    const videoContainer = document.getElementById("youtube-container");
+    const videoFrame = document.getElementById("youtube-video");
+
+    if (!videoContainer || !videoFrame) {
         console.error("YouTube video container not found!");
         return;
     }
 
-    // Embed the YouTube player
-    videoContainer.innerHTML = `
-        <iframe width="560" height="315" 
-            src="https://www.youtube.com/embed/${videoId}" 
-            frameborder="0" allowfullscreen>
-        </iframe>
-    `;
+    if (!videoId) {
+        console.error("No valid video ID. Skipping...");
+        return;
+    }
+
+    // Update the iframe source
+    videoFrame.src = `https://www.youtube.com/embed/${videoId}`;
+
+    // Show the YouTube container and ensure it's centered
+    $(videoContainer).fadeIn("fast");
+
+    // Move the table further down so it doesn’t overlap
+    $(".table-responsive").css("margin-top", "600px");
 }
+
+
+
 
 
 
