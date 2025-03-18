@@ -1,10 +1,58 @@
+/* Keep the header section visible, but hide search elements */
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Initially visible, but hidden when switching to video */
+.hidden {
+    display: none !important;
+}
+
+/* Make sure the table and background video remain visible */
+.table-responsive, .video-background {
+    display: block !important;
+}
+
+.youtube-container {
+    display: none !important; /* Initially hidden */
+    position: fixed !important;
+    inset: 0;  /* This replaces top, left, right, bottom = auto-centers */
+    margin: auto; /* Ensures it's centered properly */
+    margin-top: -30px !important; /* Move up by 30px */
+    width: 80vw !important;  /* Make it responsive */
+    height: 45vw !important; /* Maintain aspect ratio */
+    max-width: 1200px !important; /* Limit max width */
+    max-height: 675px !important; /* Limit max height */
+    z-index: 999 !important; /* Ensure it appears above everything */
+    background: rgba(0, 0, 0, 0.8) !important; /* Optional: Adds a dark background */
+    padding: 10px !important;
+    border-radius: 10px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+/* Ensure the YouTube iframe fills the container */
+#youtube-video {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+
+
+
 #tableId{
-    height: 250px;
+    height: 100px;
     color: white;
     width: 80%; 
     overflow-x: auto;
-    margin-top: 50px; /* Push table further down */
+    margin-top: 100px; /* Push table further down */
     margin-left: 200px;
+    font-size: x-large;
 }
 
 td:hover{
@@ -89,7 +137,7 @@ td:hover{
             width: auto; /* Ensures buttons do not stretch */
             text-align: center;
         }
-        .btn-artist:hover
+        .btn-artist-search:hover
         {
             background: coral;
             transition: .5s;
@@ -130,7 +178,26 @@ td:hover{
             display: inline-block; /* Ensures it stays in line */
         }
         
-         
+        .backDiv-backButton::-webkit-file-upload-button {
+            background: coral;
+            transition: .5s;
+        }
+    /* Hide Back Button By Default */
+    #backButton {
+        display: none;/* Ensure it starts hidden */
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+    
+    }
+
+    /* Show it when needed */
+    .back-visible {
+        display: inline-block !important; /* Make it visible when added */
+    }
+
     /* Responsive Fixes */
 @media (max-width: 768px) {
     .welcome-msg {

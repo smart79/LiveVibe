@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
     <head>
@@ -20,49 +20,46 @@
     <!-- Navigation Bar: Input Field / Search By Artist Name Button / Search By Song Name Button -->
     <!-- ============================================================================================================================= -->
 
-        <section class="header">
-            <video autoplay loop class="video-background" muted plays-inline>
-
-                <source src="resources/images/Recordplayer1_1080p_Videvo.mov" type="video/mp4">
-            </video>
+        
+    <video autoplay loop class="video-background" muted plays-inline>
+        <source src="resources/images/Recordplayer1_1080p_Videvo.mov" type="video/mp4">
+    </video>
+    
+    <!-- YouTube Video Player -->
+    <div id="youtube-container" class="youtube-hidden" style="text-align: center;">
+        <iframe id="youtube-video" width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
+       <!--<iframe width="75%" height="700" src="https://www.youtube.com/embed/4QIZE708gJ4" frameborder="0" allowfullscreen></iframe>-->
+    </div>
+    
+            
+            
+           
             <!-- //--place holder for logo// -->
             <img src="" class="logo">
-
             <div class="welcome-msg">
                 <h1>LiveVibe</h1>
-                <input type="text" id = "searchTerm" class="form-control" placeholder="Enter Favorite Artist or Song" name="search">
+                <input type="text" id = "searchTerm" class="form-control" placeholder="Enter Favorite Artist or Song" name="search"> 
                 <a href="#" id = "artistBtn"class="btn btn-artist">Artist Search</a>
-                <a href="#" id = "songBtn" class="btn btn-song-search">Song Search</a>
-                <div class="backDiv"></div>
-            </div>
+                <a href="#" id = "songBtn" class="btn btn-song-search">Song Search</a>    
+            </div>            
             <br>
             <br>
             <br>
-            <br>
-        
-
-        
-            <div class="table-responsive">
-                <table class="table" id="tableId">
-                    <tbody class="tBodyClass" id="tBodyId"></tbody>
-                </table>
-            </div>         
-        </section>
-
-
-
-
+            <br> 
+       
     <!-- ============================================================================================================================= -->
     <!-- Table: Displays the Artist/Song Search Results -->
     <!-- ============================================================================================================================= -->
 
-        <div class="container">
-            <div class="table-responsive">
-                <table class="table" id="tableId">
-                    <tbody class="tBodyClass" id="tBodyId"></tbody>
-                </table>
-            </div>
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table" id="tableId">
+                <tbody class="tBodyClass" id="tBodyId"></tbody>
+            </table>
         </div>
+        <!--<div class="backDiv"></div>-->
+        <a href="#" id = "backButton" class="backDiv">Back</a>
+    </div>
 
     <!-- ============================================================================================================================= -->
     <!-- Div: Displays the Ticketmaster Search Result -->
@@ -111,14 +108,7 @@
             </div>
             </div>
         </div>
-
-
-    <!-- ============================================================================================================================= -->
-    <!-- Div: Back Button for SlideUp -->
-    <!-- ============================================================================================================================= -->
-
         
-
 
     <!-- ============================================================================================================================= -->
     <!-- Footer -->
