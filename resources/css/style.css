@@ -17,31 +17,31 @@
     display: block !important;
 }
 
-/* YouTube video player container */
 .youtube-container {
-    display: none; /* Initially hidden */
-    position: fixed; /* Center it on the screen */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80vw; /* Make it responsive */
-    height: 45vw; /* Maintain aspect ratio (16:9) */
-    max-width: 1200px; /* Limit max width */
-    max-height: 675px; /* Limit max height */
-    z-index: 1000; /* Ensure it's above everything */
-    background: rgba(0, 0, 0, 0.8); /* Optional dark background */
-    padding: 10px;
-    border-radius: 10px;
-    display: flex; /* Ensure it centers content */
-    justify-content: center;
-    align-items: center;
+    display: none !important; /* Initially hidden */
+    position: fixed !important;
+    inset: 0;  /* This replaces top, left, right, bottom = auto-centers */
+    margin: auto; /* Ensures it's centered properly */
+    margin-top: -30px !important; /* Move up by 30px */
+    width: 80vw !important;  /* Make it responsive */
+    height: 45vw !important; /* Maintain aspect ratio */
+    max-width: 1200px !important; /* Limit max width */
+    max-height: 675px !important; /* Limit max height */
+    z-index: 999 !important; /* Ensure it appears above everything */
+    background: rgba(0, 0, 0, 0.8) !important; /* Optional: Adds a dark background */
+    padding: 10px !important;
+    border-radius: 10px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
 }
 
-/* Make sure the iframe fills the container */
+/* Ensure the YouTube iframe fills the container */
 #youtube-video {
-    width: 100%;
-    height: 100%;
+    width: 100% !important;
+    height: 100% !important;
 }
+
 
 
 

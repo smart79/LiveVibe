@@ -537,13 +537,38 @@ function displayYouTubeVideo(videoId) {
     // Update the iframe source
     videoFrame.src = `https://www.youtube.com/embed/${videoId}`;
 
-    // Show the YouTube container and ensure it's centered
-    $(videoContainer).fadeIn("fast");
+// Apply **stronger centering rules**
+videoContainer.style.display = "flex";
+videoContainer.style.position = "fixed";
+videoContainer.style.inset = "0"; // Centers it in the viewport
+videoContainer.style.margin = "auto"; // Ensures true centering
+videoContainer.style.marginTop = "-30px";
 
-    // Move the table further down so it doesn’t overlap
-    $(".table-responsive").css("margin-top", "600px");
+// Set width/height
+videoContainer.style.width = "80vw"; // Responsive width
+videoContainer.style.height = "45vw"; // Maintain aspect ratio
+videoContainer.style.maxWidth = "1200px"; // Prevent it from getting too large
+videoContainer.style.maxHeight = "675px"; // Keep a reasonable height limit
+
+// Ensure it's **above** other elements
+videoContainer.style.zIndex = "999"; 
+
+// Background styling (optional)
+videoContainer.style.background = "rgba(0, 0, 0, 0.8)"; 
+videoContainer.style.borderRadius = "10px";
+videoContainer.style.padding = "10px";
+videoContainer.style.textAlign = "center";
+
+// Ensure iframe fills the container
+videoFrame.style.width = "100%";
+videoFrame.style.height = "100%";
+
+// Fade in container
+$(videoContainer).fadeIn("fast");
+
+// Move the table further down so it doesn’t overlap
+$(".table-responsive").css("margin-top", "600px");
 }
-
 
 
 
