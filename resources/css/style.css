@@ -22,7 +22,7 @@
     position: fixed !important;
     inset: 0;  /* This replaces top, left, right, bottom = auto-centers */
     margin: auto; /* Ensures it's centered properly */
-    margin-top: -30px !important; /* Move up by 30px */
+    margin-top: -30px !important; /* Move up by 15px */
     width: 80vw !important;  /* Make it responsive */
     height: 45vw !important; /* Maintain aspect ratio */
     max-width: 1200px !important; /* Limit max width */
