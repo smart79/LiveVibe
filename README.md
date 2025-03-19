@@ -12,6 +12,8 @@ Enter an artist’s name and click the “Artist” button to get twitter channe
 
 You can also enter a song name and click the “Song Name” button to get information on that song and other similar songs.
 
+Once the results table have populated click on the artist name or song of choice to see the youTube Video associated.
+
 Click the Event (ticket) icon in the results section to get relevant concert and ticket information by entering your abbreviated state code. (ex: tx, or ca)
 
 You may also click the X social media platform url link to the artist's page if available.
